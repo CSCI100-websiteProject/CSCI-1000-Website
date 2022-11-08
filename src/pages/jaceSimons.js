@@ -8,11 +8,6 @@ export default function examplePage() {
           <div className='underline'>
             <h1 className='title'>Hello, Im Jace Simons</h1>
           </div>
-            <img
-                className='pic'
-                src='/jacepic.jpg'
-                alt='jaces picture'
-            />
 
           <p className='description'>
             My name is Jace Simons. I am a freshman majoring in computer science here at CU Boulder

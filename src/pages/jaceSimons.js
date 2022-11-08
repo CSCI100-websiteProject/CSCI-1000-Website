@@ -9,17 +9,17 @@ export default function examplePage() {
             <h1 className='title'>Hello, Im Jace Simons</h1>
           </div>
           <img
-            className='pic'
-            src='https://pbs.twimg.com/profile_images/415961110635110400/xPO9YqTC.jpeg'
-            alt='jace simons'
+              href='/jacepic.jpg'
+              alt='jace simons'
           />
 
           <p className='description'>
-            I dont know if you know this, but... I am kind of a big deal. I have
-            many leather bound books and my apartment smells of rich mahogany. I
-            am also a five-time local Emmy award-winning anchor for the KVWN Channel
-            4 News in San Diego. When im not reading the news, you will find me
-            playing the jazz flute around the city at different establishments.
+            My name is Jace Simons. I am a freshman majoring in computer science here at CU Boulder
+              I have been in computer science since 5th grade, when my school did the hour of code.
+              I took 3 programming classes in Middle School, and 2 AP Comp sci classes in high school.
+              I have had 3 internships, 2 of which are directly computer science (the first one was robotics).
+              My current one is at a Software company in Boulder called Yes Energy, where we develop a suite of
+              products for energy traders, people who buy and sell prospects for electricity moving through the grid.
           </p>
 
           <a className='button' href='/'>

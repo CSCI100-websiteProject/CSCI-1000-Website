@@ -12,8 +12,8 @@ export default function examplePage() {
           <p className='description'>
             My name is Jace Simons. I am a freshman majoring in computer science here at CU Boulder
               I have been in computer science since 5th grade, when my school did the hour of code.
-              I took 3 programming classes in Middle School, and 2 AP Comp sci classes in high school.
-              I have had 3 internships, 2 of which are directly computer science (the first one was robotics).
+              I took 3 programming classes in middle school, and 2 AP Comp sci classes in high school.
+              I have had 3 internships, 2 of which are directly computer science (the first one was in robotics).
               My current one is at a Software company in Boulder called Yes Energy, where we develop a suite of
               products for energy traders, people who buy and sell prospects for electricity moving through the grid.
           </p>

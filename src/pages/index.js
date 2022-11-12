@@ -34,6 +34,10 @@ export default function Home() {
             <h3> Renata Zurita's About Me Page &rarr; </h3>
             <p> Click here to navigate to Renata Zurita's about me page</p>
           </a>
+          <a href='/william' className='card'>
+            <h3> William Hardee's About Me Page &rarr; </h3>
+            <p> Click here to navigate to William Hardee's about me page</p>
+          </a>
           <a
             href='https://github.com/wangalec/website-template'
             className='card'>

@@ -9,7 +9,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className='title'>Congratulations! You've set up your webapp!</h1>
+        <h1 className='title'>Welcome to our group's about me pages!</h1>
 
         <p className='description'>
           Get started by editing <code>src/pages/index.js</code> to be your

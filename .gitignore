@@ -12,6 +12,9 @@
 /.next/
 /out/
 
+# fleet
+.fleet
+
 # production
 /build
 

@@ -1,6 +1,15 @@
-export default function jacePage() {''
+import bg from '../public/topography.svg'
+
+const styling = {
+    backgroundImage: `url(${bg.src})`,
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#080808',
+}
+
+export default function jacePage() {
     return (
-      <div className='container'>
+      <div className='container' style={styling}>
         <title>Jace Simons' About Me</title>
         <link rel='icon' href='/favicon.ico' />
 
@@ -18,16 +27,14 @@ export default function jacePage() {''
               products for energy traders, people who buy and sell prospects for electricity moving through the grid.
           </p>
             <div className='grid'>
-              <button>
-                  <a href='https://www.linkedin.com/in/jace-simons-69533723a/'>
-                    Jace's LinkedIn &rarr;
-                  </a>
-              </button>
-                <ghostbutton>
-                    <a href='/'>
-                        Back to home page &larr;
+                <button>
+                    <a href='https://www.linkedin.com/in/jace-simons-69533723a/'>
+                        Jace's LinkedIn &rarr;
                     </a>
-                </ghostbutton>
+                </button>
+                <div className='parent'>
+                    <a href='/' className="btn-gradient-2"> Back to Home Page</a>
+                </div>
             </div>
         </main>
 
@@ -41,6 +48,7 @@ export default function jacePage() {''
             align-items: center;
             max-width: 60rem;
             margin: auto;
+            width: 100%;
           }
 
           main {
@@ -181,7 +189,33 @@ export default function jacePage() {''
             color: #ffffff;
         }
 
+        .btn-gradient-2 {
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(to right, darkblue, darkorchid) border-box;
+            border-radius: 50em;
+            border: 4px solid transparent;
+        }
         
+        .parent {
+            display: flex;
+            flex-wrap;
+            gap: 1rem;
+            padding: 3rem;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .btn-gradient-2 {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1em;
+            color: darkblue;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
         `}</style>
 
         <style jsx global>{`

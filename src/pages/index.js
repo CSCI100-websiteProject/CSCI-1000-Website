@@ -1,15 +1,22 @@
 import Head from 'next/head'
+import bg from '../public/topography.svg'
+
+const styling = {
+    backgroundImage: `url(${bg.src})`,
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#080808',
+}
 
 export default function Home() {
   return (
-    <div className='container'>
+    <div className='container' style={styling}>
       <Head>
         <title>Website</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-
       <main>
-        <h1 className='title'>Welcome to our group's about me pages!</h1>
+          <h1 className='title'>Welcome to our group's about me pages!</h1>
 
         <p className='description'>
           Get started by editing <code>src/pages/index.js</code> to be your
@@ -22,10 +29,6 @@ export default function Home() {
         <code>src/page/teamMemberName.js</code>
 
         <div className='grid'>
-          <a href='/ronBurgundy' className='card'>
-            <h3>Example About Me Page &rarr;</h3>
-            <p>Click here to navigate to an example page</p>
-          </a>
           <a href='/jaceSimons' className='card'>
             <h3> Jace Simons About Me Page &rarr; </h3>
             <p> Click here to navigate to Jace Simons' about me page</p>
@@ -81,6 +84,7 @@ export default function Home() {
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          width: 100%;
         }
 
         main {

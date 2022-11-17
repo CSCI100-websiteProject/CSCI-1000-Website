@@ -9,62 +9,6 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className='title'>Welcome to our group's about me pages!</h1>
-
-        <p className='description'>
-          Get started by editing <code>src/pages/index.js</code> to be your
-          project home page.
-        </p>
-        <p className='description2'>
-          Next, each team member will create their own about me file in the
-          pages directory:{' '}
-        </p>
-        <code>src/page/teamMemberName.js</code>
-
-        <div className='grid'>
-          <a href='/ronBurgundy' className='card'>
-            <h3>Example About Me Page &rarr;</h3>
-            <p>Click here to navigate to an example page</p>
-          </a>
-          <a href='/jaceSimons' className='card'>
-            <h3> Jace Simons About Me Page &rarr; </h3>
-            <p> Click here to navigate to Jace Simons' about me page</p>
-          </a>
-          <a href='/renata' className='card'>
-            <h3> Renata Zurita's About Me Page &rarr; </h3>
-            <p> Click here to navigate to Renata Zurita's about me page</p>
-          </a>
-          <a href='/william' className='card'>
-            <h3> William Hardee's About Me Page &rarr; </h3>
-            <p> Click here to navigate to William Hardee's about me page</p>
-          </a>
-          <a
-            href='https://github.com/wangalec/website-template'
-            className='card'>
-            <h3>Project Resources&rarr;</h3>
-            <p>
-              Return to the Github for resources on creating your own website!
-            </p>
-          </a>
-          <a
-            href='https://nextjs.org/learn/foundations/about-nextjs'
-            className='card'>
-            <h3>Next.js&rarr;</h3>
-            <p>Click here to learn more about Next.js</p>
-          </a>
-          <a href='https://blog.hubspot.com/website/html' className='card'>
-            <h3>HTML and CSS &rarr;</h3>
-            <p>Click here to learn more about HTML and CSS</p>
-          </a>{' '}
-          <a href='https://tailwindcss.com/' className='card'>
-            <h3>Tailwind css&rarr;</h3>
-            <p>Click here to learn more about tailwind css</p>
-          </a>
-          <a href='https://styled-components.com/' className='card'>
-            <h3>Styled Components&rarr;</h3>
-            <p>Click here to learn more about Styled Components</p>
-          </a>
-        </div>
       </main>
 
       <footer>
@@ -81,6 +25,7 @@ export default function Home() {
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          width: 100%;
         }
 
         main {

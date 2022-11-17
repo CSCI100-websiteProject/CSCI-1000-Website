@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import bg from '../public/topography.svg'
-import $ from 'jquery'
+import $ from "jquery"
+import './loader'
 
 const containerStyling = {
     backgroundImage: `url(${bg.src})`,
@@ -9,96 +10,98 @@ const containerStyling = {
     backgroundColor: '#080808',
 }
 
-$(document).ready(function() {
-    var containers = $('.container');
+(function($) {
+    $(document).ready(function() {
+        var containers = $('.container');
 
-    if (containers.length) {
-        containers.each(function() {
-            var container = $(this);
+        if (containers.length) {
+            containers.each(function() {
+                var container = $(this);
 
-            // Support small text - copy to fill screen width
-            if (container.find('.scrolling-text').outerWidth() < $(window).width()) {
-                var windowToScrolltextRatio = Math.round($(window).width() / container.find('.scrolling-text').outerWidth()),
-                    scrollTextContent = container.find('.scrolling-text .scrolling-text-content').text(),
-                    newScrollText = '';
-                for (var i = 0; i < windowToScrolltextRatio; i++) {
-                    newScrollText += ' ' + scrollTextContent;
+                // Support small text - copy to fill screen width
+                if (container.find('.scrolling-text').outerWidth() < $(window).width()) {
+                    var windowToScrolltextRatio = Math.round($(window).width() / container.find('.scrolling-text').outerWidth()),
+                        scrollTextContent = container.find('.scrolling-text .scrolling-text-content').text(),
+                        newScrollText = '';
+                    for (var i = 0; i < windowToScrolltextRatio; i++) {
+                        newScrollText += ' ' + scrollTextContent;
+                    }
+                    container.find('.scrolling-text .scrolling-text-content').text(newScrollText);
                 }
-                container.find('.scrolling-text .scrolling-text-content').text(newScrollText);
-            }
 
-            // Init variables and config
-            var scrollingText = container.find('.scrolling-text'),
-                scrollingTextWidth = scrollingText.outerWidth(),
-                scrollingTextHeight = scrollingText.outerHeight(true),
-                startLetterIndent = parseInt(scrollingText.find('.scrolling-text-content').css('font-size'), 10) / 4.8,
-                startLetterIndent = Math.round(startLetterIndent),
-                scrollAmountBoundary = Math.abs($(window).width() - scrollingTextWidth),
-                transformAmount = 0,
-                leftBound = 0,
-                rightBound = scrollAmountBoundary,
-                transformDirection = container.hasClass('left-to-right') ? -1 : 1,
-                transformSpeed = 200;
+                // Init variables and config
+                var scrollingText = container.find('.scrolling-text'),
+                    scrollingTextWidth = scrollingText.outerWidth(),
+                    scrollingTextHeight = scrollingText.outerHeight(true),
+                    startLetterIndent = parseInt(scrollingText.find('.scrolling-text-content').css('font-size'), 10) / 4.8,
+                    startLetterIndent = Math.round(startLetterIndent),
+                    scrollAmountBoundary = Math.abs($(window).width() - scrollingTextWidth),
+                    transformAmount = 0,
+                    leftBound = 0,
+                    rightBound = scrollAmountBoundary,
+                    transformDirection = container.hasClass('left-to-right') ? -1 : 1,
+                    transformSpeed = 200;
 
-            // Read transform speed
-            if (container.attr('speed')) {
-                transformSpeed = container.attr('speed');
-            }
-
-            // Make scrolling text copy for scrolling infinity
-            container.append(scrollingText.clone().addClass('scrolling-text-copy'));
-            container.find('.scrolling-text').css({'position': 'absolute', 'left': 0});
-            container.css('height', scrollingTextHeight);
-
-            var getActiveScrollingText = function(direction) {
-                var firstScrollingText = container.find('.scrolling-text:nth-child(1)');
-                var secondScrollingText = container.find('.scrolling-text:nth-child(2)');
-
-                var firstScrollingTextLeft = parseInt(container.find('.scrolling-text:nth-child(1)').css("left"), 10);
-                var secondScrollingTextLeft = parseInt(container.find('.scrolling-text:nth-child(2)').css("left"), 10);
-
-                if (direction === 'left') {
-                    return firstScrollingTextLeft < secondScrollingTextLeft ? secondScrollingText : firstScrollingText;
-                } else if (direction === 'right') {
-                    return firstScrollingTextLeft > secondScrollingTextLeft ? secondScrollingText : firstScrollingText;
+                // Read transform speed
+                if (container.attr('speed')) {
+                    transformSpeed = container.attr('speed');
                 }
-            }
 
-            $(window).on('wheel', function(e) {
-                var delta = e.originalEvent.deltaY;
+                // Make scrolling text copy for scrolling infinity
+                container.append(scrollingText.clone().addClass('scrolling-text-copy'));
+                container.find('.scrolling-text').css({'position': 'absolute', 'left': 0});
+                container.css('height', scrollingTextHeight);
 
-                if (delta > 0) {
-                    // going down
-                    transformAmount += transformSpeed * transformDirection;
-                    container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(10deg)');
+                var getActiveScrollingText = function(direction) {
+                    var firstScrollingText = container.find('.scrolling-text:nth-child(1)');
+                    var secondScrollingText = container.find('.scrolling-text:nth-child(2)');
+
+                    var firstScrollingTextLeft = parseInt(container.find('.scrolling-text:nth-child(1)').css("left"), 10);
+                    var secondScrollingTextLeft = parseInt(container.find('.scrolling-text:nth-child(2)').css("left"), 10);
+
+                    if (direction === 'left') {
+                        return firstScrollingTextLeft < secondScrollingTextLeft ? secondScrollingText : firstScrollingText;
+                    } else if (direction === 'right') {
+                        return firstScrollingTextLeft > secondScrollingTextLeft ? secondScrollingText : firstScrollingText;
+                    }
                 }
-                else {
-                    transformAmount -= transformSpeed * transformDirection;
-                    container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(-10deg)');
-                }
-                setTimeout(function(){
-                    container.find('.scrolling-text').css('transform', 'translate3d('+ transformAmount * -1 +'px, 0, 0)');
-                }, 10);
-                setTimeout(function() {
-                    container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(0)');
-                }, 500)
 
-                // Boundaries
-                if (transformAmount < leftBound) {
-                    var activeText = getActiveScrollingText('left');
-                    activeText.css({'left': Math.round(leftBound - scrollingTextWidth - startLetterIndent) + 'px'});
-                    leftBound = parseInt(activeText.css("left"), 10);
-                    rightBound = leftBound + scrollingTextWidth + scrollAmountBoundary + startLetterIndent;
+                $(window).on('wheel', function(e) {
+                    var delta = e.originalEvent.deltaY;
 
-                } else if (transformAmount > rightBound) {
-                    var activeText = getActiveScrollingText('right');
-                    activeText.css({'left': Math.round(rightBound + scrollingTextWidth - scrollAmountBoundary + startLetterIndent) + 'px'});
-                    rightBound += scrollingTextWidth + startLetterIndent;
-                    leftBound = rightBound - scrollingTextWidth - scrollAmountBoundary - startLetterIndent;
-                }
-            });
-        })
-    }
+                    if (delta > 0) {
+                        // going down
+                        transformAmount += transformSpeed * transformDirection;
+                        container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(10deg)');
+                    }
+                    else {
+                        transformAmount -= transformSpeed * transformDirection;
+                        container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(-10deg)');
+                    }
+                    setTimeout(function(){
+                        container.find('.scrolling-text').css('transform', 'translate3d('+ transformAmount * -1 +'px, 0, 0)');
+                        }, 10);
+                    setTimeout(function() {
+                        container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(0)');
+                        }, 500)
+
+                    // Boundaries
+                    if (transformAmount < leftBound) {
+                        var activeText = getActiveScrollingText('left');
+                        activeText.css({'left': Math.round(leftBound - scrollingTextWidth - startLetterIndent) + 'px'});
+                        leftBound = parseInt(activeText.css("left"), 10);
+                        rightBound = leftBound + scrollingTextWidth + scrollAmountBoundary + startLetterIndent;
+
+                    } else if (transformAmount > rightBound) {
+                        var activeText = getActiveScrollingText('right');
+                        activeText.css({'left': Math.round(rightBound + scrollingTextWidth - scrollAmountBoundary + startLetterIndent) + 'px'});
+                        rightBound += scrollingTextWidth + startLetterIndent;
+                        leftBound = rightBound - scrollingTextWidth - scrollAmountBoundary - startLetterIndent;
+                    }
+                });
+            })
+        }
+    });
 });
 
 export default function Home() {
@@ -110,6 +113,10 @@ export default function Home() {
       </Head>
 
       <main>
+<a href='/jaceSimons' className='card'>
+              <h3> Jace Simons About Me Page &rarr; </h3>
+              <p> Click here to navigate to Jace Simons' about me page</p>
+          </a>
           <div class="container" speed={70}>
               <div class='scrolling-text'>
                   <h2 class="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
@@ -132,7 +139,7 @@ export default function Home() {
 
       <footer>
         <a href='' target='_blank' rel='noopener noreferrer'>
-          Copyright CSCI 1000
+          Jace Simons
         </a>
       </footer>
 

@@ -1,4 +1,6 @@
-export default function jacePage() {''
+
+
+export default function jacePage() {
     return (
       <div className='container'>
         <title>Jace Simons' About Me</title>

@@ -1,10 +1,10 @@
 import bg from '../public/topography.svg'
 
 const styling = {
-    backgroundImage: `url(${bg.src})`,
+    //backgroundImage: `url(${bg.src})`,
     width: '100%',
     height: '100%',
-    backgroundColor: '#080808',
+    //backgroundColor: '#080808',
 }
 
 export default function jacePage() {
@@ -12,7 +12,9 @@ export default function jacePage() {
       <div className='container' style={styling}>
         <title>Jace Simons' About Me</title>
         <link rel='icon' href='/favicon.ico' />
-
+          <div id="scroll-container">
+              <div id="scroll-text">This is scrolling text.</div>
+              </div>
         <main>
           <div className='underline'>
             <h1 className='title'>Hello, I'm Jace Simons</h1>
@@ -26,16 +28,6 @@ export default function jacePage() {
               My current one is at a Software company in Boulder called Yes Energy, where we develop a suite of
               products for energy traders, people who buy and sell prospects for electricity moving through the grid.
           </p>
-            <div className='grid'>
-                <button>
-                    <a href='https://www.linkedin.com/in/jace-simons-69533723a/'>
-                        Jace's LinkedIn &rarr;
-                    </a>
-                </button>
-                <div className='parent'>
-                    <a href='/' className="btn-gradient-2"> Back to Home Page</a>
-                </div>
-            </div>
         </main>
 
         <style jsx>{`
@@ -79,51 +71,6 @@ export default function jacePage() {
           .pic {
             height: 450px;
             width: 450px;
-          }
-
-          button {
-            position: absolute;
-            border: none;
-            color: #ffffff;
-            width: 15em;
-            height: 5em;
-            line-height: 2em;
-            text-align: center;
-            background: linear-gradient(
-                90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4
-            );
-            background-size: 300%;
-            border-radius: 90px;
-            text-transform: uppercase;
-            cursor: pointer;
-            z-index: 1;
-          }
-          button:hover {
-            animation: animation 8s linear infinite;
-            border: none;
-          }
-          @keyframes animation {
-            0% { background-position: 0%; }
-            100% { background-position: 400%; }
-          }
-          button:before {
-            content: "";
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            z-index: -1;
-            background: linear-gradient(
-                90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4
-            );
-            background-size: 400%;
-            border-radius: 90px;
-            transition: 1s;
-          }
-          button:hover::before {
-            animation: animation 8s linear infinite;
-            filter: blur(25px);
           }
 
           code {
@@ -189,33 +136,47 @@ export default function jacePage() {
             color: #ffffff;
         }
 
-        .btn-gradient-2 {
-            background: linear-gradient(white, white) padding-box,
-                        linear-gradient(to right, darkblue, darkorchid) border-box;
-            border-radius: 50em;
-            border: 4px solid transparent;
-        }
-        
-        .parent {
-            display: flex;
-            flex-wrap;
-            gap: 1rem;
-            padding: 3rem;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        #scroll-container {
+        border: 3px solid black;
+        border-radius: 5px;
+        overflow: hidden;
         }
 
-        .btn-gradient-2 {
-            position: relative;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1em;
-            color: darkblue;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
+        #scroll-text {
+        /* animation properties */
+        -moz-transform: translateX(100%);
+        -webkit-transform: translateX(100%);
+        transform: translateX(100%);
+
+        -moz-animation: my-animation 15s linear infinite;
+        -webkit-animation: my-animation 15s linear infinite;
+        animation: my-animation 15s linear infinite;
         }
+
+        /* for Firefox */
+        @-moz-keyframes my-animation {
+        from { -moz-transform: translateX(100%); }
+        to { -moz-transform: translateX(-100%); }
+        }
+
+        /* for Chrome */
+        @-webkit-keyframes my-animation {
+        from { -webkit-transform: translateX(100%); }
+        to { -webkit-transform: translateX(-100%); }
+        }
+
+        @keyframes my-animation {
+        from {
+        -moz-transform: translateX(100%);
+        -webkit-transform: translateX(100%);
+        transform: translateX(100%);
+        }
+        to {
+        -moz-transform: translateX(-100%);
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+        }
+
         `}</style>
 
         <style jsx global>{`

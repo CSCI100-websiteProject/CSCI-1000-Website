@@ -1,78 +1,137 @@
 import Head from 'next/head'
 import bg from '../public/topography.svg'
+import $ from 'jquery'
 
-const styling = {
+const containerStyling = {
     backgroundImage: `url(${bg.src})`,
     width: '100%',
     height: '100%',
     backgroundColor: '#080808',
 }
 
+$(document).ready(function() {
+    var containers = $('.container');
+
+    if (containers.length) {
+        containers.each(function() {
+            var container = $(this);
+
+            // Support small text - copy to fill screen width
+            if (container.find('.scrolling-text').outerWidth() < $(window).width()) {
+                var windowToScrolltextRatio = Math.round($(window).width() / container.find('.scrolling-text').outerWidth()),
+                    scrollTextContent = container.find('.scrolling-text .scrolling-text-content').text(),
+                    newScrollText = '';
+                for (var i = 0; i < windowToScrolltextRatio; i++) {
+                    newScrollText += ' ' + scrollTextContent;
+                }
+                container.find('.scrolling-text .scrolling-text-content').text(newScrollText);
+            }
+
+            // Init variables and config
+            var scrollingText = container.find('.scrolling-text'),
+                scrollingTextWidth = scrollingText.outerWidth(),
+                scrollingTextHeight = scrollingText.outerHeight(true),
+                startLetterIndent = parseInt(scrollingText.find('.scrolling-text-content').css('font-size'), 10) / 4.8,
+                startLetterIndent = Math.round(startLetterIndent),
+                scrollAmountBoundary = Math.abs($(window).width() - scrollingTextWidth),
+                transformAmount = 0,
+                leftBound = 0,
+                rightBound = scrollAmountBoundary,
+                transformDirection = container.hasClass('left-to-right') ? -1 : 1,
+                transformSpeed = 200;
+
+            // Read transform speed
+            if (container.attr('speed')) {
+                transformSpeed = container.attr('speed');
+            }
+
+            // Make scrolling text copy for scrolling infinity
+            container.append(scrollingText.clone().addClass('scrolling-text-copy'));
+            container.find('.scrolling-text').css({'position': 'absolute', 'left': 0});
+            container.css('height', scrollingTextHeight);
+
+            var getActiveScrollingText = function(direction) {
+                var firstScrollingText = container.find('.scrolling-text:nth-child(1)');
+                var secondScrollingText = container.find('.scrolling-text:nth-child(2)');
+
+                var firstScrollingTextLeft = parseInt(container.find('.scrolling-text:nth-child(1)').css("left"), 10);
+                var secondScrollingTextLeft = parseInt(container.find('.scrolling-text:nth-child(2)').css("left"), 10);
+
+                if (direction === 'left') {
+                    return firstScrollingTextLeft < secondScrollingTextLeft ? secondScrollingText : firstScrollingText;
+                } else if (direction === 'right') {
+                    return firstScrollingTextLeft > secondScrollingTextLeft ? secondScrollingText : firstScrollingText;
+                }
+            }
+
+            $(window).on('wheel', function(e) {
+                var delta = e.originalEvent.deltaY;
+
+                if (delta > 0) {
+                    // going down
+                    transformAmount += transformSpeed * transformDirection;
+                    container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(10deg)');
+                }
+                else {
+                    transformAmount -= transformSpeed * transformDirection;
+                    container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(-10deg)');
+                }
+                setTimeout(function(){
+                    container.find('.scrolling-text').css('transform', 'translate3d('+ transformAmount * -1 +'px, 0, 0)');
+                    }, 10);
+                setTimeout(function() {
+                    container.find('.scrolling-text .scrolling-text-content').css('transform', 'skewX(0)');
+                    }, 500)
+
+                // Boundaries
+                if (transformAmount < leftBound) {
+                    var activeText = getActiveScrollingText('left');
+                    activeText.css({'left': Math.round(leftBound - scrollingTextWidth - startLetterIndent) + 'px'});
+                    leftBound = parseInt(activeText.css("left"), 10);
+                    rightBound = leftBound + scrollingTextWidth + scrollAmountBoundary + startLetterIndent;
+
+                } else if (transformAmount > rightBound) {
+                    var activeText = getActiveScrollingText('right');
+                    activeText.css({'left': Math.round(rightBound + scrollingTextWidth - scrollAmountBoundary + startLetterIndent) + 'px'});
+                    rightBound += scrollingTextWidth + startLetterIndent;
+                    leftBound = rightBound - scrollingTextWidth - scrollAmountBoundary - startLetterIndent;
+                }
+            });
+        })
+    }
+});
+
 export default function Home() {
   return (
-    <div className='container' style={styling}>
+    <div className='container' style={containerStyling}>
       <Head>
         <title>Website</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main>
-          <h1 className='title'>Welcome to our group's about me pages!</h1>
-
-        <p className='description'>
-          Get started by editing <code>src/pages/index.js</code> to be your
-          project home page.
-        </p>
-        <p className='description2'>
-          Next, each team member will create their own about me file in the
-          pages directory:{' '}
-        </p>
-        <code>src/page/teamMemberName.js</code>
-
-        <div className='grid'>
-          <a href='/jaceSimons' className='card'>
-            <h3> Jace Simons About Me Page &rarr; </h3>
-            <p> Click here to navigate to Jace Simons' about me page</p>
-          </a>
-          <a href='/renata' className='card'>
-            <h3> Renata Zurita's About Me Page &rarr; </h3>
-            <p> Click here to navigate to Renata Zurita's about me page</p>
-          </a>
-          <a href='/william' className='card'>
-            <h3> William Hardee's About Me Page &rarr; </h3>
-            <p> Click here to navigate to William Hardee's about me page</p>
-          </a>
-          <a
-            href='https://github.com/wangalec/website-template'
-            className='card'>
-            <h3>Project Resources&rarr;</h3>
-            <p>
-              Return to the Github for resources on creating your own website!
-            </p>
-          </a>
-          <a
-            href='https://nextjs.org/learn/foundations/about-nextjs'
-            className='card'>
-            <h3>Next.js&rarr;</h3>
-            <p>Click here to learn more about Next.js</p>
-          </a>
-          <a href='https://blog.hubspot.com/website/html' className='card'>
-            <h3>HTML and CSS &rarr;</h3>
-            <p>Click here to learn more about HTML and CSS</p>
-          </a>{' '}
-          <a href='https://tailwindcss.com/' className='card'>
-            <h3>Tailwind css&rarr;</h3>
-            <p>Click here to learn more about tailwind css</p>
-          </a>
-          <a href='https://styled-components.com/' className='card'>
-            <h3>Styled Components&rarr;</h3>
-            <p>Click here to learn more about Styled Components</p>
-          </a>
-        </div>
+          <div className="container" speed='70' >
+          <div className='scrolling-text'>
+              <h2 className="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
+                  not so big but still very big</h2>
+          </div>
+          </div>
+  <div className="container left-to-right" speed='100'>
+    <div className='scrolling-text'>
+        <h2 className="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
+            not so big but still very big</h2>
+    </div>
+  </div>
+    <div className="container">
+    <div className='scrolling-text'>
+        <h2 className="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
+            not so big but still very big</h2>
+    </div>
+    </div>
       </main>
 
       <footer>
         <a href='' target='_blank' rel='noopener noreferrer'>
-          Copyright CSCI 1000
+          Jace Simons, Renata Zurita, Mariana Vadas Arendt, William Hardee 2022
         </a>
       </footer>
 
@@ -115,8 +174,12 @@ export default function Home() {
           align-items: center;
         }
 
+        .h1 {
+            color: #ffffff;
+        }
+
         a {
-          color: inherit;
+          color: #ffffff;
           text-decoration: none;
         }
 
@@ -211,6 +274,129 @@ export default function Home() {
             flex-direction: column;
           }
         }
+
+      // css scroll
+
+      #scroll-container {
+        //border: 3px solid white;
+        //border-radius: 5px;
+        overflow: shown;
+        color: white;
+        width: 100rem;
+        height: 50rem;
+//        width: 100%;
+//        height: 100%;
+        font-size: 90px;
+      }
+
+      #scroll-text {
+          /* animation properties */
+          -moz-transform: translateX(100%);
+          -webkit-transform: translateX(100%);
+          transform: translateX(100%);
+
+          -moz-animation: my-animation 25s linear infinite;
+          -webkit-animation: my-animation 15s linear infinite;
+          animation: my-animation 25s linear infinite;
+      }
+
+      /* for Firefox */
+          @-moz-keyframes my-animation {
+          from { -moz-transform: translateX(100%); }
+          to { -moz-transform: translateX(-100%); }
+      }
+
+      /* for Chrome */
+          @-webkit-keyframes my-animation {
+          from { -webkit-transform: translateX(100%); }
+          to { -webkit-transform: translateX(-100%); }
+      }
+
+      @keyframes my-animation {
+          from {
+              -moz-transform: translateX(100%);
+              -webkit-transform: translateX(100%);
+              transform: translateX(100%);
+          }
+          to {
+              -moz-transform: translateX(-100%);
+              -webkit-transform: translateX(-100%);
+              transform: translateX(-100%);
+      }
+
+      // js scroll
+
+      *, *::before, *::after{
+      -webkit-box-sizing:padding-box;
+      box-sizing:padding-box;
+      }
+
+      body{
+      background:#CCC;
+      }
+
+      body,
+      div,
+      ul,
+      li,
+      p {
+      margin: 0;
+      padding: 0;
+      font-family: verdana;
+      font-size: 16pt;
+      }
+
+      .tickerwrapper {
+      /* the outer div */
+
+      position: relative;
+      top: 30px;
+      left:0%;
+      border: 1px solid #444;
+      background: #fff;
+      width: 99.9%;
+      height: 30px;
+      overflow: hidden;
+      cursor: pointer;
+      }
+
+      ul.list {
+      position: relative;
+      display: inline-block;
+      list-style: none;
+      padding:0;
+      margin:0;
+      }
+
+      ul.list.cloned {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      }
+
+      ul.list li {
+      float: left;
+      padding-left: 20px;
+      }
+
+      // idk what im doing
+
+      .scrolling-text {
+      display: inline-block;
+      transition: transform 0.5s cubic-bezier(0.23, 0.36, 0.28, 0.83);
+      will-change: transform;
+      backface-visibility: hidden;
+      color: #ffffff;
+      }
+
+      .scrolling-text .scrolling-text-content {
+      color: #ffffff;
+      font-size: 120px;
+      white-space: nowrap;
+      transition: transform 0.5s cubic-bezier(0.23, 0.36, 0.28, 0.83);
+      line-height: 1em;
+      margin: 50px 0;
+      }
       `}</style>
 
       <style jsx global>{`

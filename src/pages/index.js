@@ -1,8 +1,15 @@
 import Head from 'next/head'
 
+const containerStyling = {
+    backgroundImage: `url(${bg.src})`,
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#080808',
+}
+
 export default function Home() {
   return (
-    <div className='container'>
+    <div className='container' style={containerStyling}>
       <Head>
         <title>Website</title>
         <link rel='icon' href='/favicon.ico' />

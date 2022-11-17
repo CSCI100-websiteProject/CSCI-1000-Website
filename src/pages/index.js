@@ -9,6 +9,7 @@ const containerStyling = {
     backgroundColor: '#080808',
 }
 
+//const scrollFunction = {
 $(document).ready(function() {
     var containers = $('.container');
 
@@ -100,6 +101,7 @@ $(document).ready(function() {
         })
     }
 });
+//}
 
 export default function Home() {
   return (
@@ -107,28 +109,28 @@ export default function Home() {
       <Head>
         <title>Website</title>
         <link rel='icon' href='/favicon.ico' />
+          <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
       </Head>
       <main>
-          <div className="container" speed='70' >
-          <div className='scrolling-text'>
-              <h2 className="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
-                  not so big but still very big</h2>
-          </div>
-          </div>
-  <div className="container left-to-right" speed='100'>
-    <div className='scrolling-text'>
-        <h2 className="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
-            not so big but still very big</h2>
-    </div>
-  </div>
-    <div className="container">
-    <div className='scrolling-text'>
-        <h2 className="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
-            not so big but still very big</h2>
-    </div>
-    </div>
       </main>
-
+        <div class="container" speed='70'>
+            <div class='scrolling-text'>
+                <h2 class="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
+                    not so big but still very big</h2>
+            </div>
+        </div>
+  <div class="container left-to-right" speed='100'>
+<div class='scrolling-text'>
+<h2 class="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
+not so big but still very big</h2>
+  </div>
+    </div>
+    <div class="container">
+    <div class='scrolling-text'>
+        <h2 class="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
+            not so big but still very big</h2>
+    </div>
+    </div>
       <footer>
         <a href='' target='_blank' rel='noopener noreferrer'>
           Jace Simons, Renata Zurita, Mariana Vadas Arendt, William Hardee 2022

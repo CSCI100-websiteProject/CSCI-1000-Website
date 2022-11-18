@@ -1,7 +1,14 @@
 import Head from 'next/head'
 import bg from '../public/topography.svg'
-import $ from "jquery"
-import './loader'
+//import $ from "jquery"
+//import './loader'
+
+const jsdom = require('jsdom')
+const dom = new jsdom.JSDOM("")
+const $ = require('jquery')(dom.window)
+
+//let $ = jquery.$;
+//let document = jquery.document;
 
 const containerStyling = {
     backgroundImage: `url(${bg.src})`,
@@ -10,7 +17,7 @@ const containerStyling = {
     backgroundColor: '#080808',
 }
 
-(function($) {
+const textScrolling = () => {
     $(document).ready(function() {
         var containers = $('.container');
 
@@ -102,7 +109,7 @@ const containerStyling = {
             })
         }
     });
-});
+}
 
 export default function Home() {
   return (
@@ -110,6 +117,7 @@ export default function Home() {
       <Head>
         <title>Website</title>
         <link rel='icon' href='/favicon.ico' />
+          <script> {textScrolling()} </script>
       </Head>
 
       <main>
@@ -117,24 +125,26 @@ export default function Home() {
               <h3> Jace Simons About Me Page &rarr; </h3>
               <p> Click here to navigate to Jace Simons' about me page</p>
           </a>
-          <div class="container" speed={70}>
-              <div class='scrolling-text'>
-                  <h2 class="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
+          <div className="container" speed={70}>
+              <div className='scrolling-text'>
+                  <h2 className="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
                       not so big but still very big</h2>
               </div>
           </div>
-  <div class="container left-to-right" speed={100}>
-    <div class='scrolling-text'>
-        <h2 class="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
+  <div className="container left-to-right" speed={100}>
+    <div className='scrolling-text'>
+        <h2 className="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
             not so big but still very big</h2>
     </div>
   </div>
-    <div class="container">
-    <div class='scrolling-text'>
-        <h2 class="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
+    <div className="container">
+    <div className='scrolling-text'>
+        <h2 className="scrolling-text-content">This is some other text, not so big but still very big This is some other text,
             not so big but still very big</h2>
     </div>
     </div>
+    <script type="module" src="index.js"></script>
+
       </main>
 
       <footer>

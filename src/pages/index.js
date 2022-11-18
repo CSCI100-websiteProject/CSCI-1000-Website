@@ -22,10 +22,6 @@ export default function Home() {
         <code>src/page/teamMemberName.js</code>
 
         <div className='grid'>
-          <a href='/ronBurgundy' className='card'>
-            <h3>Example About Me Page &rarr;</h3>
-            <p>Click here to navigate to an example page</p>
-          </a>
           <a href='/jaceSimons' className='card'>
             <h3> Jace Simons About Me Page &rarr; </h3>
             <p> Click here to navigate to Jace Simons' about me page</p>
@@ -38,6 +34,10 @@ export default function Home() {
             <h3> William Hardee's About Me Page &rarr; </h3>
             <p> Click here to navigate to William Hardee's about me page</p>
           </a>
+            <a href='/mariana' className='card'>
+                <h3>Mariana Vadas Arendt's About Me Page &rarr;</h3>
+                <p>Click here to navigate to Mariana Vadas Arendt's about me page</p>
+            </a>
           <a
             href='https://github.com/wangalec/website-template'
             className='card'>

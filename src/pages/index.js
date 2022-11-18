@@ -1,13 +1,20 @@
 import Head from 'next/head'
-import Marquee, { Motion, randomIntFromInterval } from "react-marquee-slider";
-import times from "lodash/times";
 import bg from '../public/topography.svg'
+import React, { PureComponent } from 'react'
+//import { View } from 'react-native'
+import TextTicker from 'react-native-text-ticker'
 
 const containerStyling = {
     backgroundImage: `url(${bg.src})`,
     width: '100%',
     height: '100%',
     backgroundColor: '#080808',
+}
+
+const tickerContainerStyling = {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
 }
 
 export default function Home() {
@@ -19,6 +26,19 @@ export default function Home() {
       </Head>
 
       <main>
+      <View style={tickerContainerStyling}>
+        <TextTicker
+          style={{ fontSize: 24 }}
+          duration={3000}
+          loop
+          bounce
+          repeatSpacer={50}
+          marqueeDelay={1000}
+        >
+          Super long piece of text is long. The quick brown fox jumps over the lazy dog.
+        </TextTicker>
+      </View>
+          )
       </main>
 
       <footer>

@@ -1,6 +1,3 @@
-import Marquee, { Motion, randomIntFromInterval } from "react-marquee-slider";
-import times from "lodash/times";
-
 export default function jacePage() {''
     return (
       <div className='container'>
@@ -12,33 +9,6 @@ export default function jacePage() {''
             <h1 className='title'>Hello, I'm Jace Simons</h1>
           </div>
 
-            <div style={{ height: "500px", color: '#ffffff'}}>
-                <Marquee velocity={12} minScale={0.7} resetAfterTries={200} scatterRandomly>
-                    {times(5, Number).map((id) => (
-                            <Motion
-                                key={`child-${id}`}
-                                initDeg={randomIntFromInterval(0, 360)}
-                                direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
-                                velocity={10}
-                                radius={50}
-                                >
-                                <div
-                                    style={{
-                                        width: "50px",
-                                        height: "50px",
-                                        borderRadius: "50%",
-                                        backgroundColor: "yellow",
-                                        textAlign: "center",
-                                        lineHeight: "50px",
-                                    }}
-                                    >
-                                    {id}
-                                </div>
-                            </Motion>
-                            ))}
-                </Marquee>
-                </div>
-
             <p className='description'>
               My name is Jace Simons. I am a freshman majoring in computer science here at CU Boulder
               I have been in computer science since 5th grade, when my school did the hour of code.
@@ -47,8 +17,6 @@ export default function jacePage() {''
               My current one is at a Software company in Boulder called Yes Energy, where we develop a suite of
               products for energy traders, people who buy and sell prospects for electricity moving through the grid.
           </p>
-            <div className='grid'>
-            </div>
         </main>
 
         <style jsx>{`

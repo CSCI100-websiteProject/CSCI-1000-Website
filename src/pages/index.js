@@ -2,6 +2,13 @@ import Head from 'next/head'
 import Marquee, { Motion, randomIntFromInterval } from "react-marquee-slider";
 import times from "lodash/times";
 
+const containerStyling = {
+    backgroundImage: `url(${bg.src})`,
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#080808',
+}
+
 export default function Home() {
   return (
     <div className='container'>

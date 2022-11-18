@@ -1,3 +1,6 @@
+import Marquee, { Motion, randomIntFromInterval } from "react-marquee-slider";
+import times from "lodash/times";
+
 export default function jacePage() {''
     return (
       <div className='container'>
@@ -9,6 +12,33 @@ export default function jacePage() {''
             <h1 className='title'>Hello, I'm Jace Simons</h1>
           </div>
 
+            <div style={{ height: "500px", color: '#ffffff'}}>
+                <Marquee velocity={12} minScale={0.7} resetAfterTries={200} scatterRandomly>
+                    {times(5, Number).map((id) => (
+                            <Motion
+                                key={`child-${id}`}
+                                initDeg={randomIntFromInterval(0, 360)}
+                                direction={Math.random() > 0.5 ? "clockwise" : "counterclockwise"}
+                                velocity={10}
+                                radius={50}
+                                >
+                                <div
+                                    style={{
+                                        width: "50px",
+                                        height: "50px",
+                                        borderRadius: "50%",
+                                        backgroundColor: "yellow",
+                                        textAlign: "center",
+                                        lineHeight: "50px",
+                                    }}
+                                    >
+                                    {id}
+                                </div>
+                            </Motion>
+                            ))}
+                </Marquee>
+                </div>
+
             <p className='description'>
               My name is Jace Simons. I am a freshman majoring in computer science here at CU Boulder
               I have been in computer science since 5th grade, when my school did the hour of code.
@@ -18,16 +48,6 @@ export default function jacePage() {''
               products for energy traders, people who buy and sell prospects for electricity moving through the grid.
           </p>
             <div className='grid'>
-              <button>
-                  <a href='https://www.linkedin.com/in/jace-simons-69533723a/'>
-                    Jace's LinkedIn &rarr;
-                  </a>
-              </button>
-                <ghostbutton>
-                    <a href='/'>
-                        Back to home page &larr;
-                    </a>
-                </ghostbutton>
             </div>
         </main>
 
@@ -71,51 +91,6 @@ export default function jacePage() {''
           .pic {
             height: 450px;
             width: 450px;
-          }
-
-          button {
-            position: absolute;
-            border: none;
-            color: #ffffff;
-            width: 15em;
-            height: 5em;
-            line-height: 2em;
-            text-align: center;
-            background: linear-gradient(
-                90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4
-            );
-            background-size: 300%;
-            border-radius: 90px;
-            text-transform: uppercase;
-            cursor: pointer;
-            z-index: 1;
-          }
-          button:hover {
-            animation: animation 8s linear infinite;
-            border: none;
-          }
-          @keyframes animation {
-            0% { background-position: 0%; }
-            100% { background-position: 400%; }
-          }
-          button:before {
-            content: "";
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            z-index: -1;
-            background: linear-gradient(
-                90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4
-            );
-            background-size: 400%;
-            border-radius: 90px;
-            transition: 1s;
-          }
-          button:hover::before {
-            animation: animation 8s linear infinite;
-            filter: blur(25px);
           }
 
           code {

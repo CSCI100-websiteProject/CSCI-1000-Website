@@ -35,8 +35,8 @@ export default function Home() {
             <p> Click here to navigate to William Hardee's about me page</p>
           </a>
             <a href='/mariana' className='card'>
-                <h3>Mariana Vadas Arendt's About Me Page &rarr;</h3>
-                <p>Click here to navigate to Mariana Vadas Arendt's about me page</p>
+                <h3>Mariana Vadas-Arendt's About Me Page &rarr;</h3>
+                <p>Click here to navigate to Mariana Vadas-Arendt's about me page</p>
             </a>
           <a
             href='https://github.com/wangalec/website-template'
